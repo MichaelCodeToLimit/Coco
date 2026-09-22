@@ -1,0 +1,98 @@
+note ---------------------------------------------------------------------------
+note This file is a specification illustration. It uses record declarations,
+note abilities and control flow, which the single file reference front end does
+note not implement yet (see spec/15 section 15.8). Programs that the reference
+note can compile today are hello.coco, tour*.coco, pages.coco and ambiguity.coco.
+note ---------------------------------------------------------------------------
+
+note A small game. Shows records, handlers, regions, parallel data work and
+note zero-allocation frames. Every memory decision here is made by the compiler.
+
+use draw2d
+use physics
+use input
+
+a player has
+  position as a point
+  velocity as a point
+  health as a whole number starting at 100
+
+a particle has
+  position as a point
+  velocity as a point
+  life as a decimal number
+
+keep hero as a player with
+  position as a point with x as 0 and y as 0
+  velocity as a point with x as 0 and y as 0
+
+keep enemies as empty list
+keep sparks as empty list
+
+page Game
+  scrolling
+    show text Health value of health of hero
+
+  when Start is pressed
+    open page Game
+
+note --------------------------------------------------------------- gameplay
+
+to spawn a burst at a place
+  repeat 200 times
+    add a particle with
+      position as place
+      velocity as random direction times 4
+      life as 1
+    to sparks
+
+to damage a target by an amount
+  set health of target to health of target minus amount
+  if health of target is at most 0
+    open page Game Over
+
+when hero touches an enemy
+  damage hero by 10
+  spawn a burst at position of hero
+
+when the world updates
+  during this frame
+    keep visible as empty list
+
+    for each p in sparks at the same time
+      set position of p to position of p plus velocity of p
+      set life of p to life of p minus 0.016
+
+    for each p in sparks
+      if life of p is more than 0
+        add p to visible
+
+    for each p in visible
+      draw a circle
+        at position of p
+        with radius 2
+        filled with white fading by life of p
+
+  remove dead sparks from sparks
+
+when the player presses jump
+  set velocity of hero to velocity of hero plus a point with x as 0 and y as 9
+
+page Game Over
+  centred
+    in a column spaced 16
+      show text Game over
+      show button Try again to page Game
+
+note ---------------------------------------------------------------------------
+note What the compiler decides here, viewable with `compose explain storage`:
+note
+note   hero            module state, unique heap, one owner
+note   sparks backing  unique heap, grown in place
+note   visible backing REGION `this frame`, freed in one operation
+note   p in the loops  borrowed from `this frame`, never copied
+note   the point maths registers, scalar replaced, never materialised
+note
+note Net heap allocations per frame: zero.
+note The `for each ... at the same time` loop vectorises to 8 lanes on AVX2
+note because the compiler has already proved the sparks list is not aliased.

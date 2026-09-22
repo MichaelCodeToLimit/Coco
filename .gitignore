@@ -1,0 +1,9 @@
+# Coco build outputs
+.coco/
+target/
+*.cocodbg
+*.cocorec
+
+# Python bytecode from the reference implementation
+__pycache__/
+*.pyc

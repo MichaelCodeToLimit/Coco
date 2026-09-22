@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lapis Runtime</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0c1015; color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif; padding: 24px; user-select: none; }
+    h1 { color: #4ade80; font-size: 24px; margin-bottom: 16px; font-weight: 700; }
+    .card { background: #131922; padding: 14px 16px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #1e293b; font-size: 15px; }
+    .btn { background: #22c55e; color: #000; border: none; padding: 12px 18px; border-radius: 6px; font-weight: 700; cursor: pointer; width: 100%; font-size: 14px; margin-top: 8px; transition: 0.15s; }
+    .btn:hover { background: #16a34a; color: #fff; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    (function() {
+      let rawCode = "";
+      try {
+        const decoded = decodeURIComponent(escape(atob("LAPIS_PAYLOAD_BASE64")));
+        try {
+          const parsed = JSON.parse(decoded);
+          rawCode = typeof parsed === 'object' && parsed.code ? parsed.code : String(parsed);
+        } catch { rawCode = decoded; }
+      } catch { rawCode = ""; }
+
+      const lines = rawCode.split(/\r?\n/);
+      const pages = {};
+      let currentPage = "";
+
+      for (let i = 0; i < lines.length; i++) {
+        const t = (lines[i] || '').trim();
+        if (!t || t.startsWith('#')) continue;
+
+        if (t.toLowerCase().startsWith('page ')) {
+          currentPage = t.substring(5).trim();
+          if (!pages[currentPage]) pages[currentPage] = [];
+          continue;
+        }
+
+        if (!currentPage) { currentPage = "Dashboard"; pages[currentPage] = []; }
+        pages[currentPage].push(t);
+      }
+
+      let activePage = Object.keys(pages)[0] || "Dashboard";
+
+      window.goToPage = function(target) {
+        const matched = Object.keys(pages).find(k => k.trim().toLowerCase() === String(target).trim().toLowerCase());
+        if (matched) { activePage = matched; render(); }
+      };
+
+      function render() {
+        const elements = pages[activePage] || [];
+        let html = `<h1>${activePage}</h1>`;
+
+        elements.forEach(line => {
+          const lower = line.toLowerCase();
+          if (lower.startsWith('show text ')) {
+            html += `<div class="card">${line.substring(10).trim()}</div>`;
+          } else if (lower.startsWith('show button ')) {
+            const raw = line.substring(12).trim();
+            if (raw.toLowerCase().includes(' to page ')) {
+              const parts = raw.split(/ to page /i);
+              html += `<button class="btn" onclick="goToPage('${parts[1].trim()}')">${parts[0].trim()}</button>`;
+            } else {
+              html += `<button class="btn" onclick="alert('Button clicked')">${raw}</button>`;
+            }
+          } else {
+            html += `<div class="card">${line}</div>`;
+          }
+        });
+
+        document.getElementById('root').innerHTML = html;
+      }
+      render();
+    })();
+  </script>
+</body>
+</html>

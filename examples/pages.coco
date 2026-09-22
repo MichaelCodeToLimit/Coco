@@ -1,0 +1,29 @@
+note A three page application. This is the example from the original Coco
+note concept document, written against the Edition 2026 grammar.
+
+page Home
+  in a column spaced 12
+    show text Welcome to Coco
+    show button Get Started to page Level One
+
+page Level One
+  in a column spaced 12
+    show text You have reached the first level
+    show button Go to the final level to page Level Two
+    show button Back to page Home
+
+page Level Two
+  in a column spaced 12
+    show text You have reached the second level
+    show button Return to page Home
+
+note ---------------------------------------------------------------------------
+note The same three pages written with explicit event handlers instead of the
+note `to page` shorthand. Both forms produce identical CIR.
+
+page Home Long Form
+  show text Welcome to Coco
+  show button Get Started named start
+
+  when start is pressed
+    open page Level One

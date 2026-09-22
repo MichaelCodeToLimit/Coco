@@ -1,0 +1,10 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Lapis",
+  "patterns": [
+    { "name": "keyword.control.lapis", "match": "\\b(page|when|command|tell|show|create|train)\\b" },
+    { "name": "entity.name.function.lapis", "match": "\\b(text|button|title|dynamic|progress|chart)\\b" },
+    { "name": "comment.line.number-sign.lapis", "match": "#.*$" }
+  ],
+  "scopeName": "source.lapis"
+}

@@ -1,0 +1,180 @@
+note The Hebrew locale. Right to left, segmented script.
+note Conditions L1 to L5 are specified in spec/04-multilingual.md section 4.3.1.
+
+locale he
+  name עברית
+  direction right to left
+  segmentation segmented
+  decimal separator .
+  group separator ,
+
+note ---------------------------------------------------------------- particles
+
+particle to           = אל
+particle with         = עם
+particle from         = מתוך
+particle into         = לתוך
+particle as           = בתור
+particle at           = ב
+particle on           = על
+particle by           = לפי
+particle for          = עבור
+particle of           = של
+particle until        = עד
+particle in           = בתוך
+particle over         = מעל
+particle between      = בין
+particle through      = דרך
+particle and          = וגם
+particle be           = יהיה
+particle where        = כאשר מתקיים
+particle named        = בשם
+particle spaced       = במרווח
+particle starting at  = מתחיל ב
+particle to page      = לעמוד
+particle with style   = בסגנון
+particle described as = מתואר כ
+particle says         = אומרת
+
+note ---------------------------------------------------------------- keywords
+
+word note      = הערה
+word to        = פעולה
+word when      = כאשר
+word if        = אם
+word otherwise = אחרת
+word while     = כלעוד
+word repeat    = חזור
+word for each  = לכל
+word let       = תן
+word keep      = שמור
+word set       = קבע
+word give      = החזר
+word stop      = עצור
+word skip      = דלג
+word try       = נסה
+word use       = השתמש
+word share     = שתף
+word during    = במהלך
+word group     = קבוצה
+word text      = טקסט
+word value of  = ערך של
+word yes       = כן
+word no        = לא
+word nothing   = כלום
+word empty     = ריק
+word list of   = רשימה של
+word table of  = טבלה של
+word maybe     = אולי
+word has       = מכיל
+word is one of = הוא אחד מ
+word times     = פעמים
+
+note ---------------------------------------------------------------- operators
+
+op plus            = ועוד
+op minus           = פחות
+op times           = כפול
+op over            = חלקי
+op remainder of    = שארית של
+op is              = שווה ל
+op is not          = אינו שווה ל
+op is more than    = גדול מ
+op is less than    = קטן מ
+op is at least     = לפחות
+op is at most      = לכל היותר
+op and             = וגם
+op or              = או
+op not             = לא
+
+note ---------------------------------------------------------------- types
+
+type core.type.whole_number   = מספר שלם
+type core.type.decimal_number = מספר עשרוני
+type core.type.text           = טקסט
+type core.type.boolean        = כן או לא
+type core.type.nothing        = כלום
+
+note ---------------------------------------------------------------- statements
+
+stmt core.decl.page            = עמוד
+stmt core.decl.action          = פעולה
+stmt core.decl.handler         = כאשר
+stmt core.decl.let             = תן
+stmt core.decl.keep            = שמור
+stmt core.stmt.set             = קבע
+
+stmt core.decl.message         = ההודעה
+stmt core.stmt.in_locale       = בשפה
+
+stmt core.stmt.show_text       = הצג טקסט
+stmt core.stmt.show_button     = הצג כפתור
+stmt core.stmt.show_picture    = הצג תמונה
+stmt core.stmt.show_field      = הצג שדה
+stmt core.stmt.show_spacer     = הצג רווח
+stmt core.stmt.show_divider    = הצג קו מפריד
+
+stmt core.layout.row           = בשורה
+stmt core.layout.column        = בעמודה
+stmt core.layout.grid          = ברשת של
+stmt core.layout.centred       = במרכז
+stmt core.layout.scrolling     = בגלילה
+
+stmt core.stmt.open_page       = פתח עמוד
+stmt core.stmt.go_back         = חזור אחורה
+stmt core.stmt.replace_page    = החלף עמוד ב
+
+stmt core.stmt.create          = צור
+stmt core.stmt.remove_from     = הסר
+stmt core.stmt.add_to          = הוסף
+
+stmt core.fn.count_of          = כמות של
+stmt core.fn.is_empty          = ריק
+stmt core.fn.first_in          = הראשון בתוך
+stmt core.fn.every_in          = כל
+stmt core.fn.sum_of            = סכום של
+stmt core.fn.minimum_of        = מינימום של
+stmt core.fn.maximum_of        = מקסימום של
+
+stmt core.fn.join              = חבר
+stmt core.fn.length_of         = אורך של
+stmt core.fn.as_text           = כטקסט
+stmt core.fn.as_whole_number   = כמספר שלם
+stmt core.fn.as_decimal_number = כמספר עשרוני
+
+stmt core.stmt.during          = במהלך
+stmt core.stmt.run_on          = הרץ על
+stmt core.stmt.fetch_together  = הבא את אלה בו זמנית
+stmt core.stmt.wait_at_most    = המתן לכל היותר
+
+stmt core.fn.random_between    = מספר אקראי בין
+stmt core.fn.now               = עכשיו
+stmt core.stmt.wait_for        = המתן
+stmt core.fn.absolute_value_of = ערך מוחלט של
+
+note ---------------------------------------------------------------- events
+
+stmt core.event.is_pressed     = נלחץ
+stmt core.event.is_changed     = השתנה
+stmt core.event.touches        = נוגע ב
+stmt core.event.reaches        = מגיע ל
+stmt core.event.page_opens     = העמוד נפתח
+stmt core.event.page_closes    = העמוד נסגר
+stmt core.event.world_updates  = העולם מתעדכן
+stmt core.event.every          = בכל
+
+note ---------------------------------------------------------------- slot labels
+
+slot core.slot.show_button.label  = תווית
+slot core.slot.show_button.target = יעד
+slot core.slot.show_button.style  = סגנון
+slot core.slot.show_text.content  = תוכן
+slot core.slot.open_page.target   = יעד
+
+note ---------------------------------------------------------------- reserved
+
+reserved words
+  הערה פעולה כאשר אם אחרת כלעוד חזור לכל תן שמור קבע החזר עצור דלג
+  נסה השתמש שתף במהלך קבוצה טקסט ערך כן לא כלום ריק רשימה טבלה אולי
+  מכיל הוא עמוד הצג פתח צור הסר הוסף חבר אורך סכום מינימום מקסימום
+  בשורה בעמודה ברשת במרכז בגלילה עכשיו המתן הרץ הבא מספר

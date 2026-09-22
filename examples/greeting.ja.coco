@@ -1,0 +1,12 @@
+write in japanese
+
+覚書 examples/greeting.coco とまったく同じプログラムを日本語で書いたもの
+覚書 コードの言語と表示の言語は別のものである
+覚書 メッセージが全ての言い回しを持つので 署名は英語版と同じになる
+
+greeting というメッセージ の内容は
+  english では Hi
+  hebrew では שלום
+  japanese では こんにちは
+
+greeting の値 という文字を表示

@@ -1,0 +1,12 @@
+note The same program, written in three human languages.
+note Text content and declared names are application data and are never
+note translated, so all three files carry the identical English strings.
+note All three compile to the identical canonical intermediate representation:
+note   python reference/coco_ref.py --prove-locale-equivalence
+
+page Home
+  show text Welcome
+  show button Start to page Game
+
+page Game
+  show text Game started

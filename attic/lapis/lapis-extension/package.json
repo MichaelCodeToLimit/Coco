@@ -1,0 +1,21 @@
+﻿{
+  "name": "lapis-support",
+  "displayName": "Lapis Language Support",
+  "description": "Syntax highlighting and language tooling for Lapis.",
+  "version": "1.0.0",
+  "engines": { "vscode": "^1.75.0" },
+  "categories": ["Programming Languages"],
+  "icon": "lapis.png",
+  "contributes": {
+    "languages": [{
+      "id": "lapis",
+      "aliases": ["Lapis", "lp"],
+      "extensions": [".lp", ".lps"]
+    }],
+    "grammars": [{
+      "language": "lapis",
+      "scopeName": "source.lapis",
+      "path": "./syntaxes/lapis.tmLanguage.json"
+    }]
+  }
+}

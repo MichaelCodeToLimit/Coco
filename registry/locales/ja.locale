@@ -1,0 +1,225 @@
+note The Japanese locale. Unsegmented script, verb-final word order.
+note Segmentation uses algorithm LEX-UNSEG, spec/01-lexical-structure.md section 1.4.2.
+note Several signatures are reordered with "in locale" overrides so the head
+note follows its slot, matching Japanese SOV order. See spec/04-multilingual.md 4.7.2.
+
+locale ja
+  name 日本語
+  direction left to right
+  segmentation unsegmented
+  splice order = ref first
+  decimal separator .
+  group separator ,
+
+note ---------------------------------------------------------------- particles
+
+particle to           = へ
+particle with         = とともに
+particle from         = から
+particle into         = のなかへ
+particle as           = として
+particle at           = において
+particle on           = のうえに
+particle by           = だけ
+particle for          = のために
+particle of           = の
+particle until        = まで
+particle in           = のなかで
+particle over         = をこえて
+particle between      = のあいだ
+particle through      = をとおって
+particle and          = および
+particle be           = とする
+particle where        = という条件で
+particle named        = という名前で
+particle spaced       = の間隔で
+particle starting at  = の初期値は
+particle to page      = のページへ
+particle with style   = のスタイルで
+particle described as = の説明は
+particle says         = の内容は
+
+note ---------------------------------------------------------------- keywords
+
+word note      = 覚書
+word to        = 手順
+word when      = のとき
+word if        = もし
+word otherwise = それ以外
+word while     = のあいだくりかえす
+word repeat    = くりかえす
+word for each  = のそれぞれについて
+word let       = とする
+word keep      = として保持
+word set       = に設定
+word give      = を返す
+word stop      = 中断
+word skip      = 次へ
+word try       = 試す
+word use       = 使う
+word share     = 公開
+word during    = のあいだ
+word group     = まとまり
+word text      = テキスト
+word value of  = の値
+word yes       = はい
+word no        = いいえ
+word nothing   = なし
+word empty     = 空
+word list of   = のリスト
+word table of  = の表
+word maybe     = たぶん
+word has       = を持つ
+word is one of = のいずれか
+word times     = 回
+
+note ---------------------------------------------------------------- operators
+
+op plus            = 足す
+op minus           = 引く
+op times           = 掛ける
+op over            = 割る
+op remainder of    = の余り
+op is              = と等しい
+op is not          = と等しくない
+op is more than    = より大きい
+op is less than    = より小さい
+op is at least     = 以上
+op is at most      = 以下
+op and             = かつ
+op or              = または
+op not             = でない
+
+note ---------------------------------------------------------------- types
+
+type core.type.whole_number   = 整数
+type core.type.decimal_number = 小数
+type core.type.text           = テキスト
+type core.type.boolean        = はいかいいえ
+type core.type.nothing        = なし
+
+note ---------------------------------------------------------------- statements
+
+stmt core.decl.page            = ページ
+stmt core.decl.action          = 手順
+stmt core.decl.handler         = のとき
+stmt core.decl.let             = とする
+stmt core.decl.keep            = として保持
+stmt core.stmt.set             = に設定
+
+stmt core.decl.message         = というメッセージ
+stmt core.stmt.in_locale       = では
+
+stmt core.stmt.show_text       = という文字を表示
+stmt core.stmt.show_button     = というボタンを表示
+stmt core.stmt.show_picture    = という画像を表示
+stmt core.stmt.show_field      = という入力欄を表示
+stmt core.stmt.show_spacer     = 余白を表示
+stmt core.stmt.show_divider    = 区切り線を表示
+
+stmt core.layout.row           = 横にならべて
+stmt core.layout.column        = 縦にならべて
+stmt core.layout.grid          = 格子にならべて
+stmt core.layout.centred       = 中央にそろえて
+stmt core.layout.scrolling     = スクロールして
+
+stmt core.stmt.open_page       = ページを開く
+stmt core.stmt.go_back         = 前にもどる
+stmt core.stmt.replace_page    = ページを入れかえる
+
+stmt core.stmt.create          = を作る
+stmt core.stmt.remove_from     = を減らす
+stmt core.stmt.add_to          = を加える
+
+stmt core.fn.count_of          = の個数
+stmt core.fn.is_empty          = は空
+stmt core.fn.first_in          = の最初
+stmt core.fn.every_in          = のすべて
+stmt core.fn.sum_of            = の合計
+stmt core.fn.minimum_of        = の最小
+stmt core.fn.maximum_of        = の最大
+
+stmt core.fn.join              = をつなげる
+stmt core.fn.length_of         = の長さ
+stmt core.fn.as_text           = をテキストに
+stmt core.fn.as_whole_number   = を整数に
+stmt core.fn.as_decimal_number = を小数に
+
+stmt core.stmt.during          = のあいだ
+stmt core.stmt.run_on          = で実行
+stmt core.stmt.fetch_together  = をまとめて取得
+stmt core.stmt.wait_at_most    = を上限に待つ
+
+stmt core.fn.random_between    = のあいだの乱数
+stmt core.fn.now               = 現在
+stmt core.stmt.wait_for        = だけ待つ
+stmt core.fn.absolute_value_of = の絶対値
+
+note ---------------------------------------------------------------- events
+
+stmt core.event.is_pressed     = が押された
+stmt core.event.is_changed     = が変わった
+stmt core.event.touches        = にふれた
+stmt core.event.reaches        = に達した
+stmt core.event.page_opens     = ページが開いた
+stmt core.event.page_closes    = ページが閉じた
+stmt core.event.world_updates  = 世界が更新された
+stmt core.event.every          = ごとに
+
+note ---------------------------------------------------------------- slot labels
+
+slot core.slot.show_button.label  = ラベル
+slot core.slot.show_button.target = 行き先
+slot core.slot.show_button.style  = スタイル
+slot core.slot.show_text.content  = 内容
+slot core.slot.open_page.target   = 行き先
+
+note ---------------------------------------------------------------- slot-first overrides
+
+note Japanese puts the object before the verb, so the head follows the slot.
+note This is permitted by spec/04-multilingual.md section 4.7.2 as long as the
+note same slot CIDs, kinds and optionality are preserved.
+
+order core.stmt.show_text
+  slot content
+  head
+
+order core.stmt.show_button
+  slot label
+  head
+  optional particle to page
+    slot target
+
+order core.stmt.open_page
+  slot target
+  head
+
+order core.event.is_pressed
+  subject
+  head
+
+order core.decl.page
+  head
+  slot name
+
+order core.decl.handler
+  slot event
+  head
+
+note ---------------------------------------------------------------- reserved
+
+reserved words
+  覚書 手順 のとき もし それ以外 くりかえす とする として保持 に設定 を返す
+  中断 次へ 試す 使う 公開 まとまり テキスト の値 はい いいえ なし 空
+  ページ という文字を表示 というボタンを表示 ページを開く が押された
+  横にならべて 縦にならべて 中央にそろえて 現在 で実行
+
+order core.decl.message
+  slot name
+  head
+  particle の内容は
+
+order core.stmt.in_locale
+  slot locale
+  head
+  slot content

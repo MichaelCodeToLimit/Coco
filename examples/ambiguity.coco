@@ -1,0 +1,115 @@
+note This file demonstrates every place where punctuation-free syntax could be
+note ambiguous, and how the Clause Signature Registry resolves each one.
+note Everything here parses with the reference front end:
+note   python reference/coco_ref.py examples/ambiguity.coco --emit ast
+note   python reference/coco_ref.py --why examples/ambiguity.coco:18
+
+note ---------------------------------------------------------- 1. greedy text
+
+page Home
+  show text Welcome to my app, 100% of the time
+
+page Manual
+  show text The manual
+
+page Game Over
+  show text Better luck next time
+
+note `to` alone is not a terminator phrase. `to page` is. So this label keeps
+note its middle words and the button has no target.
+show button Go to Top
+
+note Here `to page` appears as a complete phrase, so the label stops at `Go`.
+show button Go to page Home
+
+note When you genuinely need a terminator phrase inside a label, use the
+note explicit hanging form. This is the Sugar Law from spec/00 section 0.3.
+show button
+  label
+    Go to page 2 of the manual
+  to page
+    Manual
+
+note ---------------------------------------------------------- 2. open slots
+
+note `show text` has an open slot, so nothing can truncate it. Commas, percent
+note signs, braces and the word `to` are all just text.
+show text Press {Start} to begin, or wait 10 seconds
+
+note ---------------------------------------------------------- 3. names with spaces
+
+note Names are matched longest first, so `Game Over` is one name, not two.
+show button Give up to page Game Over
+
+note ---------------------------------------------------------- 4. splices
+
+keep score as 1250
+
+show text Your score is value of score
+show text Your score is value of score and rising
+
+note To show the literal words `value of`, use a text block.
+show text
+  text
+    The words value of are shown literally here.
+
+note ---------------------------------------------------------- 5. numbers in text
+
+note A number inside a text slot contributes its source spelling, not its value.
+show text You have 1,000 points
+
+note ---------------------------------------------------------- 6. word operators
+
+keep a as 2
+keep b as 3
+keep c as 4
+
+note Precedence follows arithmetic convention, so this is a plus (b times c).
+let total be a plus b times c
+
+note ---------------------------------------------------------- 7. the flush form
+
+note A `when` body may be a single statement at the same indentation. This is
+note exactly one statement, never two.
+when Give up is pressed
+open page Game Over
+
+note The same thing written the way `compose format` will rewrite it.
+when Give up is pressed
+  open page Game Over
+
+note ---------------------------------------------------------- 8. what is rejected
+
+note Each of the following would be an error. They are kept as notes so this
+note file still compiles.
+note
+note   to show a chart of a kind with some data
+note     E-0312  `show` would collide with `show text`, whose first slot is
+note             free text and could absorb the word `chart`.
+note             Fix: `to draw a chart of a kind with some data`
+note
+note   page open
+note     E-0342  `open` begins the phrase `open page` and cannot be a name.
+note
+note   page Home{2}
+note     E-0101  a brace is not a name character. It is fine inside text.
+note
+note   show button
+note     E-0231  the label slot is empty and no indented block follows.
+note
+note   let x be 1 is less than 2 is less than 3
+note     E-0252  comparison does not chain. Write
+note             `1 is less than 2 and 2 is less than 3`.
+
+note ---------------------------------------------------------- 9. beyond the reference
+
+note These parse under the full grammar (spec/02) but are not implemented by
+note the single file reference front end, which stops at CIR-D:
+note
+note   set total to
+note     group
+note       base plus bonus
+note     times multiplier
+note
+note   for each p in sparks at the same time
+note     set life of p to life of p minus 0.016

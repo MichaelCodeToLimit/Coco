@@ -1,0 +1,450 @@
+note The Coco Core Signature Registry, Edition 2026.
+note Format is specified in spec/03-clause-registry.md section 3.3.
+note This file is checked against conditions R1 to R6 before any source is parsed.
+
+note ---------------------------------------------------------------- declarations
+
+signature core.decl.page
+  head page
+  slot name of kind name
+  slot body of kind block
+  gives nothing
+  effects none
+  since edition 2026
+
+signature core.decl.action
+  head to
+  slot shape of kind signature
+  slot body of kind block
+  gives nothing
+  effects none
+
+signature core.decl.handler
+  head when
+  slot event of kind event
+  slot body of kind block
+  gives nothing
+  effects none
+
+signature core.decl.let
+  head let
+  slot name of kind name
+    terminated by be
+  particle be
+    slot value of kind value
+  gives nothing
+  effects none
+
+signature core.decl.keep
+  head keep
+  slot name of kind name
+    terminated by as
+  particle as
+    slot value of kind value
+  gives nothing
+  effects none
+
+signature core.stmt.set
+  head set
+  slot place of kind ref
+    terminated by to
+  particle to
+    slot value of kind value
+  gives nothing
+  effects writes
+
+note ---------------------------------------------------------------- messages
+
+note A message is one idea with a wording per human language. What the program
+note says to its user is data, so it is declared, not written inline. See
+note spec/04-multilingual.md section 4.12.
+
+signature core.decl.message
+  head the message
+  slot name of kind name
+    terminated by says
+  particle says
+  slot body of kind block
+  gives text
+  effects none
+
+signature core.stmt.in_locale
+  head in
+  slot locale of kind ref
+  slot content of kind text open
+  gives nothing
+  effects none
+
+note ---------------------------------------------------------------- user interface
+
+signature core.stmt.show_text
+  head show text
+  slot content of kind text open
+  declarative
+  gives a view node
+  effects io
+
+signature core.stmt.show_button
+  head show button
+  slot label of kind text
+    terminated by to page
+    terminated by with style
+    terminated by named
+  optional particle to page
+    slot target of kind ref
+  optional particle with style
+    slot style of kind ref
+  optional particle named
+    slot key of kind name
+  declarative
+  gives a view node
+  effects io
+
+signature core.stmt.show_picture
+  head show picture
+  slot source of kind value
+  optional particle with style
+    slot style of kind ref
+  optional particle described as
+    slot description of kind text open
+  declarative
+  gives a view node
+  effects io
+
+signature core.stmt.show_field
+  head show field
+  slot prompt of kind text
+    terminated by into
+  particle into
+    slot binding of kind ref
+  declarative
+  gives a view node
+  effects io
+
+signature core.stmt.show_spacer
+  head show spacer
+  declarative
+  gives a view node
+  effects io
+
+signature core.stmt.show_divider
+  head show divider
+  declarative
+  gives a view node
+  effects io
+
+signature core.layout.row
+  head in a row
+  optional particle spaced
+    slot gap of kind value
+  slot body of kind block
+  declarative
+  gives a view node
+  effects io
+
+signature core.layout.column
+  head in a column
+  optional particle spaced
+    slot gap of kind value
+  slot body of kind block
+  declarative
+  gives a view node
+  effects io
+
+signature core.layout.grid
+  head in a grid of
+  slot columns of kind number
+  slot body of kind block
+  declarative
+  gives a view node
+  effects io
+
+signature core.layout.centred
+  head centred
+  slot body of kind block
+  declarative
+  gives a view node
+  effects io
+
+signature core.layout.scrolling
+  head scrolling
+  slot body of kind block
+  declarative
+  gives a view node
+  effects io
+
+note ---------------------------------------------------------------- navigation
+
+signature core.stmt.open_page
+  head open page
+  slot target of kind ref
+  gives nothing
+  effects io
+
+signature core.stmt.go_back
+  head go back
+  gives nothing
+  effects io
+
+signature core.stmt.replace_page
+  head replace page with
+  slot target of kind ref
+  gives nothing
+  effects io
+
+note ---------------------------------------------------------------- events
+
+signature core.event.is_pressed
+  kind event
+  subject of kind ref
+  head is pressed
+
+signature core.event.is_changed
+  kind event
+  subject of kind ref
+  head is changed
+
+signature core.event.touches
+  kind event
+  subject of kind ref
+  head touches
+  slot other of kind ref
+
+signature core.event.reaches
+  kind event
+  subject of kind ref
+  head reaches
+  slot threshold of kind value
+
+signature core.event.page_opens
+  kind event
+  head the page opens
+
+signature core.event.page_closes
+  kind event
+  head the page closes
+
+signature core.event.world_updates
+  kind event
+  head the world updates
+
+signature core.event.every
+  kind event
+  head on every
+  slot interval of kind value
+
+note ---------------------------------------------------------------- game model
+
+signature core.stmt.create
+  head create
+  slot what of kind name
+    terminated by at
+    terminated by with
+  optional particle at
+    slot position of kind value
+  optional particle with
+    slot properties of kind block
+  gives a thing
+  effects allocates
+
+signature core.stmt.remove_from
+  head remove
+  slot amount of kind value
+    terminated by from
+  particle from
+    slot place of kind ref
+  gives nothing
+  effects writes
+
+signature core.stmt.add_to
+  head add
+  slot item of kind value
+    terminated by to
+  particle to
+    slot collection of kind ref
+  gives nothing
+  effects writes
+
+note ---------------------------------------------------------------- collections
+
+signature core.fn.count_of
+  head count of
+  slot collection of kind value
+  gives a whole number
+  effects reads
+
+signature core.fn.is_empty
+  head is empty
+  slot collection of kind value
+  gives yes or no
+  effects reads
+
+signature core.fn.first_in
+  head first in
+  slot collection of kind value
+  optional particle where
+    slot condition of kind block
+  gives maybe an element
+  effects reads
+
+signature core.fn.every_in
+  head every
+  slot name of kind name
+    terminated by in
+  particle in
+    slot collection of kind value
+  optional particle where
+    slot condition of kind block
+  gives a list
+  effects reads
+
+signature core.fn.sum_of
+  head sum of
+  slot collection of kind value
+  gives a number
+  effects reads
+
+signature core.fn.minimum_of
+  head minimum of
+  slot collection of kind value
+  gives a number
+  effects reads
+
+signature core.fn.maximum_of
+  head maximum of
+  slot collection of kind value
+  gives a number
+  effects reads
+
+note ---------------------------------------------------------------- text
+
+signature core.fn.join
+  head join
+  slot parts of kind block
+  gives text
+  effects none
+
+signature core.fn.length_of
+  head length of
+  slot value of kind value
+  gives a whole number
+  effects none
+
+signature core.fn.as_text
+  head as text
+  slot value of kind value
+  gives text
+  effects none
+
+signature core.fn.as_whole_number
+  head as a whole number
+  slot value of kind value
+  gives a whole number
+  effects none
+
+signature core.fn.as_decimal_number
+  head as a decimal number
+  slot value of kind value
+  gives a decimal number
+  effects none
+
+note ---------------------------------------------------------------- regions and devices
+
+signature core.stmt.during
+  head during
+  slot name of kind name
+  slot body of kind block
+  gives nothing
+  effects none
+  note introduces a region; everything allocated inside is freed at the end
+
+signature core.stmt.run_on
+  head run on the
+  slot device of kind ref
+  slot body of kind block
+  gives nothing
+  effects device
+
+signature core.stmt.fetch_together
+  head fetch these at the same time
+  slot body of kind block
+  gives nothing
+  effects blocks
+
+signature core.stmt.wait_at_most
+  head wait at most
+  slot duration of kind value
+    terminated by for
+  particle for
+    slot body of kind block
+  gives nothing
+  effects blocks
+
+note ---------------------------------------------------------------- numerics and misc
+
+signature core.fn.random_between
+  head random number between
+  slot low of kind value
+    terminated by and
+  particle and
+    slot high of kind value
+  gives a number
+  effects random
+
+signature core.fn.now
+  head now
+  gives a moment
+  effects time
+
+signature core.stmt.wait_for
+  head wait for
+  slot duration of kind value
+  gives nothing
+  effects blocks
+
+signature core.fn.absolute_value_of
+  head absolute value of
+  slot value of kind value
+  gives a number
+  effects none
+
+note ---------------------------------------------------------------- particles, closed set
+
+particle set
+  to
+  says
+  with
+  from
+  into
+  as
+  at
+  on
+  by
+  for
+  of
+  until
+  in
+  over
+  between
+  through
+  and
+  be
+  where
+  named
+  spaced
+  starting at
+  to page
+  with style
+  described as
+  with data
+  into area
+  at volume
+  from position
+  in locale
+
+note ---------------------------------------------------------------- reserved words
+
+reserved words
+  note to when if otherwise while repeat for each let keep set
+  a an the text value of and or not yes no use share stop skip give
+  page try during group list table maybe empty nothing every is be

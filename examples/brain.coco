@@ -1,0 +1,69 @@
+note ---------------------------------------------------------------------------
+note This file is a specification illustration. It uses record declarations,
+note abilities and control flow, which the single file reference front end does
+note not implement yet (see spec/15 section 15.8). Programs that the reference
+note can compile today are hello.coco, tour*.coco, pages.coco and ambiguity.coco.
+note ---------------------------------------------------------------------------
+
+note A neural network, written in the same language as the interface and the
+note server. The compiler differentiates the forward pass directly from CIR,
+note so a hand written layer is differentiable with no registration step.
+
+use tensor
+use model
+
+let vocabulary size be 32000
+let width be 512
+let depth be 12
+
+create neural network Brain
+  an embedding layer of width
+  repeat depth times
+    an attention layer with 8 heads and width width
+    a dense layer of 2048 activated by gelu
+  a dense layer of vocabulary size
+
+note --------------------------------------------------------------- training
+
+to train the brain on a corpus
+  give Brain training data from corpus
+  train Brain
+    for 3 epochs
+    using adam with learning rate 0.0003
+
+note --------------------------------------------------------------- a custom layer
+
+note Nothing here is special to the framework. It is ordinary Coco over
+note tensors, and `train` will differentiate it.
+
+to apply a swiglu to an input with a gate weight and an up weight
+  let gated be matrix product of input and gate weight
+  let raised be matrix product of input and up weight
+  give elementwise multiply over
+    elementwise silu over gated
+    raised
+
+note --------------------------------------------------------------- inference
+
+when Brain receives text
+  run on the gpu
+    let answer be ask Brain about the received text
+  give answer
+
+note --------------------------------------------------------------- serving it
+
+use net
+
+serve on port 9000
+  when a request arrives at /ask isolated
+    let question be the body of the request
+    let answer be ask Brain about question
+    reply with json answer
+
+note ---------------------------------------------------------------------------
+note `compose explain transfers` reports every byte that crosses to the GPU and
+note where it was elided because the tensor was already resident.
+note
+note Floating point contraction is off by default inside `run on the gpu`, so the
+note device result matches the host result bit for bit. Turn it on per region with
+note `allow fused multiply add` when you want the extra speed.

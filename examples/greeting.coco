@@ -1,0 +1,13 @@
+note Greeting everyone in their own language.
+note
+note `show text Hi` puts the word Hi in the program. A message puts the *idea*
+note in the program and lets the running application choose the wording, so this
+note file and greeting.he.coco and greeting.ja.coco are all the same program with
+note the same canonical hash. See spec/04-multilingual.md section 4.12.
+
+the message greeting says
+  in english Hi
+  in hebrew שלום
+  in japanese こんにちは
+
+show text value of greeting

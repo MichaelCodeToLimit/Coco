@@ -1,0 +1,181 @@
+note The English locale. Reference binding for every core CID.
+note Conditions L1 to L5 are specified in spec/04-multilingual.md section 4.3.1.
+
+locale en
+  name English
+  direction left to right
+  segmentation segmented
+  decimal separator .
+  group separator ,
+
+note ---------------------------------------------------------------- particles
+
+particle to           = to
+particle with         = with
+particle from         = from
+particle into         = into
+particle as           = as
+particle at           = at
+particle on           = on
+particle by           = by
+particle for          = for
+particle of           = of
+particle until        = until
+particle in           = in
+particle over         = over
+particle between      = between
+particle through      = through
+particle and          = and
+particle be           = be
+particle where        = where
+particle named        = named
+particle spaced       = spaced
+particle starting at  = starting at
+particle to page      = to page
+particle with style   = with style
+particle described as = described as
+particle says         = says
+
+note ---------------------------------------------------------------- keywords
+
+word note      = note
+word to        = to
+word when      = when
+word if        = if
+word otherwise = otherwise
+word while     = while
+word repeat    = repeat
+word for each  = for each
+word let       = let
+word keep      = keep
+word set       = set
+word give      = give
+word stop      = stop
+word skip      = skip
+word try       = try
+word use       = use
+word share     = share
+word during    = during
+word group     = group
+word text      = text
+word value of  = value of
+word yes       = yes
+word no        = no
+word nothing   = nothing
+word empty     = empty
+word list of   = list of
+word table of  = table of
+word maybe     = maybe
+word has       = has
+word is one of = is one of
+word times     = times
+
+note ---------------------------------------------------------------- operators
+
+op plus            = plus
+op minus           = minus
+op times           = times
+op over            = over
+op remainder of    = remainder of
+op is              = is
+op is not          = is not
+op is more than    = is more than
+op is less than    = is less than
+op is at least     = is at least
+op is at most      = is at most
+op and             = and
+op or              = or
+op not             = not
+
+note ---------------------------------------------------------------- types
+
+type core.type.whole_number   = whole number
+type core.type.decimal_number = decimal number
+type core.type.text           = text
+type core.type.boolean        = yes or no
+type core.type.nothing        = nothing
+
+note ---------------------------------------------------------------- statements
+
+stmt core.decl.page            = page
+stmt core.decl.action          = to
+stmt core.decl.handler         = when
+stmt core.decl.let             = let
+stmt core.decl.keep            = keep
+stmt core.stmt.set             = set
+
+stmt core.decl.message         = the message
+stmt core.stmt.in_locale       = in
+
+stmt core.stmt.show_text       = show text
+stmt core.stmt.show_button     = show button
+stmt core.stmt.show_picture    = show picture
+stmt core.stmt.show_field      = show field
+stmt core.stmt.show_spacer     = show spacer
+stmt core.stmt.show_divider    = show divider
+
+stmt core.layout.row           = in a row
+stmt core.layout.column        = in a column
+stmt core.layout.grid          = in a grid of
+stmt core.layout.centred       = centred
+stmt core.layout.scrolling     = scrolling
+
+stmt core.stmt.open_page       = open page
+stmt core.stmt.go_back         = go back
+stmt core.stmt.replace_page    = replace page with
+
+stmt core.stmt.create          = create
+stmt core.stmt.remove_from     = remove
+stmt core.stmt.add_to          = add
+
+stmt core.fn.count_of          = count of
+stmt core.fn.is_empty          = is empty
+stmt core.fn.first_in          = first in
+stmt core.fn.every_in          = every
+stmt core.fn.sum_of            = sum of
+stmt core.fn.minimum_of        = minimum of
+stmt core.fn.maximum_of        = maximum of
+
+stmt core.fn.join              = join
+stmt core.fn.length_of         = length of
+stmt core.fn.as_text           = as text
+stmt core.fn.as_whole_number   = as a whole number
+stmt core.fn.as_decimal_number = as a decimal number
+
+stmt core.stmt.during          = during
+stmt core.stmt.run_on          = run on the
+stmt core.stmt.fetch_together  = fetch these at the same time
+stmt core.stmt.wait_at_most    = wait at most
+
+stmt core.fn.random_between    = random number between
+stmt core.fn.now               = now
+stmt core.stmt.wait_for        = wait for
+stmt core.fn.absolute_value_of = absolute value of
+
+note ---------------------------------------------------------------- events
+
+stmt core.event.is_pressed     = is pressed
+stmt core.event.is_changed     = is changed
+stmt core.event.touches        = touches
+stmt core.event.reaches        = reaches
+stmt core.event.page_opens     = the page opens
+stmt core.event.page_closes    = the page closes
+stmt core.event.world_updates  = the world updates
+stmt core.event.every          = on every
+
+note ---------------------------------------------------------------- slot labels
+
+slot core.slot.show_button.label  = label
+slot core.slot.show_button.target = target
+slot core.slot.show_button.style  = style
+slot core.slot.show_text.content  = content
+slot core.slot.open_page.target   = target
+
+note ---------------------------------------------------------------- reserved
+
+reserved words
+  note to when if otherwise while repeat for each let keep set
+  a an the text value of and or not yes no use share stop skip give
+  page try during group list table maybe empty nothing every is be
+  show open create remove add join count length sum minimum maximum
+  in centred scrolling now wait run fetch random absolute

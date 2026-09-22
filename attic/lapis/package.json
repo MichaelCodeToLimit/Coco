@@ -1,0 +1,14 @@
+﻿{
+  "name": "emerald-lang",
+  "version": "1.0.0",
+  "description": "Lapis / Emerald zero-punctuation deterministic runtime and toolchain",
+  "main": "engine.ps1",
+  "scripts": {
+    "start": "powershell .\\engine.ps1 app.lp",
+    "build": "powershell .\\build.ps1",
+    "studio": "powershell .\\engine.ps1 ide"
+  },
+  "keywords": ["lapis", "emerald", "language", "runtime"],
+  "author": "micha",
+  "license": "MIT"
+}

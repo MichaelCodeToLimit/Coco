@@ -1,0 +1,85 @@
+note ---------------------------------------------------------------------------
+note This file is a specification illustration. It uses record declarations,
+note abilities and control flow, which the single file reference front end does
+note not implement yet (see spec/15 section 15.8). Programs that the reference
+note can compile today are hello.coco, tour*.coco, pages.coco and ambiguity.coco.
+note ---------------------------------------------------------------------------
+
+note A social application. One language for interface, logic, storage and server.
+
+use ui
+use store
+use net
+
+a person has
+  name as text
+  bio as text starting at
+  avatar as an image
+
+the collection people holds person
+  indexed by name unique
+
+a post has
+  author as a person
+  body as text
+  posted at as a moment
+
+the collection posts holds post
+  indexed by author
+
+keep current user as nothing
+
+note --------------------------------------------------------------- interface
+
+page Profile
+  in a column spaced 12
+    show picture avatar of current user described as Profile photo
+    show text name of current user
+    show text bio of current user
+    show button Follow named follow
+
+    show divider
+
+    show list of every row in posts where author of it is current user
+      showing each as
+        in a column spaced 4
+          show text body of it
+          show text posted at of it
+
+  when follow is pressed
+    follow current user
+    change button follow to Following
+
+note --------------------------------------------------------------- behaviour
+
+to notice a user posts something
+  give an event
+
+when user posts something
+  all at once
+    put a post with
+      author as current user
+      body as the new body
+      posted at as now
+    into posts
+
+  show post to followers of current user
+
+note --------------------------------------------------------------- the server
+
+serve on port 8080
+  when a request arrives at /feed isolated
+    let recent be every row in posts
+      sorted by posted at of it
+      limited to 50
+    reply with json recent
+
+  when a request arrives at /health isolated
+    reply with text
+      ok
+
+note ---------------------------------------------------------------------------
+note There is no SQL here, and there cannot be: the `where` block is ordinary
+note Coco that the compiler analyses at build time to choose an index. String
+note interpolation into a query is not expressible, so injection is not a class
+note of bug this program can have.

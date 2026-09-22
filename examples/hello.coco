@@ -1,0 +1,7 @@
+note The smallest complete Coco program.
+note
+note The greeting here is a word in the program, not a translation of one. To
+note greet each user in their own language, see examples/greeting.coco. To see
+note this program written in three human languages, see examples/tour.coco.
+
+show text Hi
